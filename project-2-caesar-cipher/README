@@ -1,4 +1,4 @@
-# Caesar Cipher — Encryption & Decryption Tool
+Caesar Cipher — Encryption & Decryption Tool
 
 A command-line tool that encrypts and decrypts text using the Caesar cipher — one of the oldest known encryption techniques, and the foundational building block for understanding modern cryptography.
 
