@@ -38,11 +38,8 @@ def has_symbol(password: str) -> bool:
     return any(char in string.punctuation for char in password)
 
 
-# ---------------------------------------------------------------------------
-# PROCESS: Length policy
-# ---------------------------------------------------------------------------
 
-MIN_LENGTH = 8  # Per policy: "< 8 chars = immediate fail"
+MIN_LENGTH = 8  
 
 
 def meets_minimum_length(password: str) -> bool:
@@ -61,13 +58,6 @@ def length_score(password: str) -> int:
     return 3
 
 
-# ---------------------------------------------------------------------------
-# PROCESS: Entropy estimation
-# ---------------------------------------------------------------------------
-# Simplified academic model: entropy (bits) = length * log2(pool size).
-# Pool size grows with each character class present. This mirrors the
-# "search space" idea from the brief (charset size directly drives how
-# hard a password is to brute-force) without needing full Unicode support.
 
 def estimate_entropy(password: str) -> float:
     pool = 0
@@ -86,12 +76,6 @@ def estimate_entropy(password: str) -> float:
     return len(password) * math.log2(pool)
 
 
-# ---------------------------------------------------------------------------
-# PROCESS: Common weak-pattern detection
-# ---------------------------------------------------------------------------
-# Bonus per the brief's conclusion slide: "adding a check for common
-# 'leaked' passwords" is explicitly called out as a good extension.
-# This is a small illustrative list, not a full breach-corpus lookup.
 
 COMMON_WEAK_PASSWORDS = {
     "password", "123456", "qwerty", "letmein", "admin",
@@ -136,8 +120,7 @@ def evaluate_password(password: str) -> dict:
     entropy = estimate_entropy(password)
     issues = find_common_pattern_issues(password)
 
-    # Hard fail: policy says <8 chars is an immediate fail, regardless
-    # of anything else.
+    
     if not passes_min_length:
         verdict = "WEAK"
     else:
