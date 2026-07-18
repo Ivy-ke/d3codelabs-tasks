@@ -1,33 +1,49 @@
-# Password Strength Checker
+Password Strength Checker
 
-A command-line tool that evaluates whether a password is **Weak**, **Medium**, or **Strong** based on length, character variety, estimated entropy, and common weak-pattern detection.
+This is a command-line tool that evaluates the strength of a password by checking its length, character variety, estimated entropy, and common weak patterns. Based on the analysis, the password is classified as Weak, Medium, or Strong.
 
-Built as Project 1 of the DecodeLabs Industrial Training Kit — the defensive-logic foundation before moving into hashing and encryption.
+This project was developed as Project 1 of the DecodeLabs Industrial Training Kit. It focuses on the fundamentals of defensive programming and introduces basic password security concepts before moving into hashing and encryption.
 
-## Why
+Why This Project Matters
 
-Per Verizon's 2025 Data Breach Investigations Report, stolen or weak credentials remain the top initial access vector into organizations, factoring into **22% of all breaches** — and **88% of basic web application attacks** specifically involve stolen credentials. Strong password validation is a first line of defense against this.
+Weak passwords remain one of the leading causes of security breaches. According to the Verizon 2025 Data Breach Investigations Report, stolen or weak credentials continue to be one of the most common ways attackers gain unauthorized access to systems.
 
-## Features
+This project was developed to demonstrate how basic password validation can help encourage stronger password practices and improve overall security awareness.
 
-- Enforces an 8-character minimum (hard fail below this, per policy)
-- Checks for uppercase, lowercase, digits, and symbols
-- Estimates entropy (bits) based on character pool size
-- Flags common leaked/weak patterns (e.g. `password`, `admin`, `1234`, repeated characters)
-- Clear WEAK / MEDIUM / STRONG verdict with full breakdown
+Features
 
-## Usage
+The program performs several checks to determine password strength, including:
 
-```bash
+Enforcing a minimum password length of 8 characters
+Checking for the presence of:
+Uppercase letters
+Lowercase letters
+Numbers
+Special characters
+Estimating password entropy to determine how difficult it would be to guess
+Detecting common weak passwords and predictable patterns such as:
+password
+admin
+1234
+Repeated characters
+Displaying a final password strength rating of:
+Weak
+Medium
+Strong
+How to Run the Program
 python3 password_strength_checker_decodelabs.py
-```
 
-Type a password when prompted to see its strength report. Type `exit` to quit.
+The program prompts the user to enter a password for analysis.
 
-## Example
+To exit the program, type:
+
+exit
+Example Output
 Enter a password to check: P@ssw0rdXyZ99!
-================================================
+
+==========================================
 PASSWORD STRENGTH REPORT
+
 Length              : 14 (minimum required: 8)
 Meets min length    : Yes
 Lowercase letters   : Yes
@@ -37,10 +53,28 @@ Symbols             : Yes
 Estimated entropy   : 91.76 bits
 
 VERDICT             : STRONG
-## Requirements
+How the Password Is Evaluated
 
-Python 3.x — no external dependencies.
+The program considers several factors when calculating password strength:
 
-## Skills Demonstrated
+Password length
+Variety of character types used
+Estimated entropy (measured in bits)
+Presence of common or predictable password patterns
 
-String handling, conditional logic, and foundational security concepts (entropy, common-pattern detection).
+These checks provide a simple way of identifying passwords that are easier for attackers to guess or crack.
+
+Requirements
+Python 3.x
+No external libraries or dependencies required
+Skills Demonstrated
+
+Through this project, I strengthened my understanding of:
+
+-Python string handling
+-Conditional statements and decision-making
+-User input validation
+-Password security best practices
+-Password entropy concepts
+-Identifying common weak password patterns
+-Basic defensive programming principles
