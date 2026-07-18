@@ -1,93 +1,141 @@
 Caesar Cipher — Encryption & Decryption Tool
 
-A command-line tool that encrypts and decrypts text using the Caesar cipher — one of the oldest known encryption techniques, and the foundational building block for understanding modern cryptography.
+This is a command-line application that encrypts and decrypts text using the Caesar cipher, one of the earliest and simplest encryption techniques. Although it is not secure enough for modern applications, it provides a good introduction to the basic concepts of cryptography.
 
-Built as Project 2 of the DecodeLabs Industrial Training Kit — the confidentiality/cryptography foundation, bridging basic logic (Project 1) into data protection.
+This project was developed as Project 2 of the DecodeLabs Industrial Training Kit. It focuses on the fundamentals of data confidentiality and builds on the programming concepts learned in Project 1 by introducing basic encryption techniques.
 
-## What This Project Demonstrates
+What This Project Demonstrates
 
-- Symmetric encryption concepts (one key both locks and unlocks the message)
-- Character-level string manipulation using ASCII values
-- Modular arithmetic to handle "wraparound" at the end of the alphabet
-- Clean separation of Input → Process → Output (IPO model)
+Through this project, I learned and demonstrated:
 
-## Background: What Is a Caesar Cipher?
+The basic concept of symmetric encryption, where the same key is used for both encryption and decryption.
+Character-by-character string manipulation using ASCII values.
+The use of modular arithmetic to correctly wrap letters around the alphabet.
+Applying the Input → Process → Output (IPO) programming model to build a complete application.
+Background: What Is a Caesar Cipher?
 
-The Caesar cipher is named after Julius Caesar, who — according to the Roman historian Suetonius, writing about 150 years after Caesar's death — used a shift of 3 to protect sensitive military messages during the Gallic Wars (58–50 BCE). Every letter in the message was replaced with the letter three positions further down the alphabet: A → D, B → E, and so on, wrapping back to the start when it reached the end (X → A, Y → B, Z → C).
+The Caesar cipher is one of the oldest known encryption methods. It is believed to have been used by Julius Caesar to protect military communications by shifting each letter in a message by a fixed number of positions in the alphabet.
 
-It's a **substitution cipher**: each letter is systematically swapped for another, based on a fixed shift value (the "key"). It's considered one of the earliest documented encryption methods in Western history, and it's still taught today because it introduces the core vocabulary of cryptography — plaintext, ciphertext, key, encryption, decryption — without the mathematical complexity of modern algorithms.
+For example, using a shift of 3:
 
-## How It Works
+A becomes D
+B becomes E
+X becomes A
+Y becomes B
+Z becomes C
 
-### The Math
-Encrypt: E(x) = (x + n) mod 26
-Decrypt: D(x) = (x - n) mod 26
+This is known as a substitution cipher because every letter is replaced with another letter based on a fixed shift value (the key).
+
+Although the Caesar cipher is no longer considered secure, it is still widely taught because it introduces important cryptography concepts such as:
+
+Plaintext
+Ciphertext
+Encryption
+Decryption
+Encryption keys
+How the Program Works
+Encryption Formula
+E(x) = (x + n) mod 26
+Decryption Formula
+D(x) = (x - n) mod 26
+
 Where:
-- `x` = the letter's position in the alphabet (A=0, B=1, ... Z=25)
-- `n` = the shift key
-- `mod 26` = wraps the result back into the 0–25 range once it goes past Z or below A
 
-**Worked example** (shift = 3):
-- Letter `Y` is at position 24
-- `24 + 3 = 27`
-- `27 mod 26 = 1`
-- Position 1 = `B`
-- So `Y` encrypts to `B`
+x represents the letter's position in the alphabet (A = 0, B = 1 ... Z = 25).
+n is the shift key chosen by the user.
+mod 26 ensures that letters wrap around to the beginning of the alphabet after Z.
+Example
 
-### In Code
+Using a shift value of 3:
 
-Python's `ord()` converts a character to its ASCII number, and `chr()` converts a number back to a character:
+Letter Y has position 24
+24 + 3 = 27
+27 mod 26 = 1
+Position 1 corresponds to B
 
-```python
+Therefore, Y is encrypted as B.
+
+Implementation in Python
+
+The program uses Python's built-in ord() and chr() functions to convert characters to ASCII values and back again.
+
 cipher_char = chr((ord(char) - 65 + shift) % 26 + 65)
-```
 
-Breaking that down: subtract the ASCII base (65 for uppercase `A`) to get a 0–25 position, add the shift, wrap with `% 26`, then add the base back to return to a printable character.
+In simple terms, the program:
 
-### Why Decryption Is Just "Encryption in Reverse"
+Converts the letter into its ASCII value.
+Converts it into a position between 0 and 25.
+Adds the shift value.
+Uses modulo (% 26) to wrap around the alphabet if needed.
+Converts the result back into a readable letter.
+How Decryption Works
 
-The Caesar cipher is **symmetric** — the same key that scrambles the message also unscrambles it. Decrypting is mathematically identical to encrypting, just with a negative shift:
-D(x) = (x - n) mod 26   is the same operation as   E(x) with shift = -n
-## Usage
+The Caesar cipher uses symmetric encryption, meaning the same key is used for both encrypting and decrypting a message.
 
-```bash
+To decrypt the text, the program simply shifts the letters in the opposite direction.
+
+D(x) = (x - n) mod 26
+
+This reverses the encryption process and restores the original message.
+
+How to Run the Program
 python3 caesar_cipher_decodelabs.py
-```
 
-You'll be prompted for:
-1. The text to encrypt
-2. A shift key (any integer; 1–25 is typical)
+The program prompts the user to enter:
 
-The program then displays the original text, the encrypted ciphertext, and the decrypted (recovered) text side by side, so you can visually confirm the round trip worked.
+The text to encrypt.
+A shift key (typically between 1 and 25).
 
-## Example
+After processing, it displays:
+
+The original message
+The encrypted ciphertext
+The decrypted message
+
+This allows the user to verify that the encryption and decryption process works correctly.
+
+Example Output
 Enter text to encrypt: Attack at Dawn
 Enter shift key (1-25 recommended): 7
+
 CAESAR CIPHER REPORT
+
 Shift key            : 7
 Original text        : Attack at Dawn
 Encrypted (cipher)   : Haahjr ha Khdu
 Decrypted (recovered): Attack at Dawn
 Round-trip verified  : Yes
-## Edge Cases Handled
+Features Implemented
 
-- **Case preservation** — uppercase stays uppercase, lowercase stays lowercase
-- **Non-letter characters** — spaces, numbers, and punctuation pass through unchanged (they aren't part of the 26-letter alphabet the shift operates on)
-- **Wraparound** — shifting past Z or before A correctly wraps to the other end of the alphabet, handled by the modulo operation
+The program also handles several common situations correctly:
 
-## Security Note (Why This Isn't Production-Grade Encryption)
+Case preservation – uppercase and lowercase letters remain unchanged after encryption.
+Non-letter characters – spaces, numbers, and punctuation are left unchanged.
+Alphabet wrap-around – letters shifted beyond Z correctly continue from A using modular arithmetic.
+Security Note
 
-This project is about learning the encrypt/decrypt *mechanism*, not building something secure enough for real-world use. The Caesar cipher has two well-known weaknesses:
+This project was created for educational purposes to understand the fundamentals of encryption rather than to provide secure communication.
 
-1. **Tiny key space** — there are only 25 possible shift values, so a computer (or a patient human) can simply try every single one until the message becomes readable. This is called a brute-force attack.
-2. **Frequency analysis** — shifting doesn't change the *pattern* of letter frequency in a language. In English, `E` is the most common letter; after a Caesar shift, whatever letter `E` became is still the most common letter in the ciphertext. An attacker who knows this can often guess the shift just by looking at which letter appears most often.
+The Caesar cipher has several limitations:
 
-These are exactly the properties that led to the development of stronger ciphers — polyalphabetic substitution (like the Vigenère cipher, which uses a repeating multi-character key instead of one fixed shift) and eventually modern algorithms like AES, which use much larger key spaces and mathematical operations designed to destroy any predictable pattern between plaintext and ciphertext.
+Small key space – there are only 25 possible shift values, making it easy to crack using a brute-force attack.
+Frequency analysis – the frequency of letters remains the same after shifting, allowing attackers to estimate the key by analyzing letter patterns.
 
-## Requirements
+These weaknesses explain why stronger encryption algorithms such as AES are used today. Modern encryption methods use much larger key spaces and more advanced mathematical techniques to provide stronger security.
 
-Python 3.x — no external dependencies.
+Requirements
+Python 3.x
+No external libraries or dependencies required.
+Skills Demonstrated
 
-## Skills Demonstrated
+This project helped me strengthen my understanding of:
 
-Encryption concepts, algorithmic logic building, modular arithmetic, and foundational data protection principles.
+Basic cryptography concepts
+Symmetric encryption and decryption
+Python programming
+ASCII character manipulation
+Modular arithmetic
+Algorithm design and problem-solving
+Input–Process–Output (IPO) programming principles
+
+.
